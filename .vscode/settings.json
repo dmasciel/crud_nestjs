@@ -1,0 +1,37 @@
+{
+    "window.zoomLevel": 1,
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "editor.fontSize": 14,
+    "editor.lineHeight": 1.8,
+    "editor.fontFamily": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "editor.formatOnPaste": true,
+    "editor.semanticHighlighting.enabled": false,
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "workbench.startupEditor": "newUntitledFile",
+    "editor.renderLineHighlight": "gutter",
+    "editor.fontLigatures": true,
+    "editor.minimap.enabled": false,
+    "git.autofetch": true,
+    "editor.formatOnSave": true, // Formatar ao Salvar
+    "workbench.iconTheme": "material-icon-theme",
+    "material-icon-theme.activeIconPack": "nest", //theme do nest
+    "workbench.colorTheme": "Dracula Theme",
+    // EsLint and fix on save
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.fixAll": "explicit"
+    },
+    "explorer.compactFolders": false,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "package.json": ".eslint*, .prettier*, tsconfig*, vite*, pnpm-lock*, package-lock*, bun.lockb",
+        "tailwind.config*": "tailwind.config*, postcss.config*",
+        ".env.local": ".env*",
+        ".env": ".env*",
+        "docker-compose.yaml": "Dockerfile, .dockerignore"
+    }
+}

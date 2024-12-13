@@ -1,0 +1,38 @@
+@baseUrl = http://localhost:3000
+
+#
+### Mode Development or Production
+GET {{baseUrl}}/
+
+# 
+### List All Posts
+GET {{baseUrl}}/notes/?limit=11&offset=11
+### List Single Post
+GET {{baseUrl}}/notes/2/
+
+### Create Post
+POST {{baseUrl}}/notes/
+Content-Type: application/json
+
+  {
+    "text": "New note de test",
+    "from": "Joana",
+    //"bla bla": "bla bla",
+    "to": "João"
+  }
+
+
+### Update Post
+PATCH {{baseUrl}}/notes/2/
+Content-Type: application/json
+
+  {
+    "text": "UPDATE note de test",
+    "from": "Joana",
+    "to": "João",
+    "read": false
+    //"bla bla": "bla bla",
+  }
+
+### Delete Post
+DELETE {{baseUrl}}/notes/2/
