@@ -23,7 +23,8 @@
     // EsLint and fix on save
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "explicit",
-        "source.fixAll": "explicit"
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit"
     },
     "explorer.compactFolders": false,
     "explorer.fileNesting.enabled": true,

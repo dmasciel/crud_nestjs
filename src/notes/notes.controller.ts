@@ -11,9 +11,9 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { NotesService } from './notes.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
+import { NotesService } from './notes.service';
 
 @Controller('notes')
 export class NotesController {
@@ -23,7 +23,7 @@ export class NotesController {
   @Get()
   findAll(@Query() pagination: any) {
     const { limit = 10, offset = 0 } = pagination;
-    console.log(pagination);
+    //console.log(pagination);
     //return `This route returns all messages. Limit=${limit}, Offset=${offset}`;
     return this.notesService.findAll();
   }

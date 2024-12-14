@@ -17,13 +17,12 @@ Content-Type: application/json
   {
     "text": "New note de test",
     "from": "Joana",
-    //"bla bla": "bla bla",
     "to": "João"
   }
 
 
 ### Update Post
-PATCH {{baseUrl}}/notes/2/
+PATCH {{baseUrl}}/notes/6/
 Content-Type: application/json
 
   {

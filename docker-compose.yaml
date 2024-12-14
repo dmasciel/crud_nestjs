@@ -9,14 +9,14 @@ services:
   postgres:
     image: bitnami/postgresql:14.15.0
     ports:
-      - '5432:5432'
+      - '5433:5432'
     environment:
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=docker
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=crud_nestjs
     volumes:
-      - postgres_crud_nestjs:/bitnami/postgresql
+      - postgres:/data/db
 
 volumes:
-  postgres_crud_nestjs:      
+  postgres:      
   
