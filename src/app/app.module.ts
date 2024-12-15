@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { NotesModule } from 'src/notes/notes.module';
+import { PeoplesModule } from 'src/people/people.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -19,6 +20,7 @@ import { AppService } from './app.service';
     }),
     ConfigModule.forRoot(),
     NotesModule,
+    PeoplesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
