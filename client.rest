@@ -4,11 +4,16 @@
 ### Mode Development or Production
 GET {{baseUrl}}/
 
+
 # 
+
+
 ### List All Notes
-GET {{baseUrl}}/notes/?limit=11&offset=11
+GET {{baseUrl}}/notes/?limit=10&offset=0
+Authorization: Bearer 123456
+
 ### List Single Note
-GET {{baseUrl}}/notes/18/
+GET {{baseUrl}}/notes/1/
 
 ### Create Note
 POST {{baseUrl}}/notes/
@@ -41,7 +46,7 @@ DELETE {{baseUrl}}/notes/2/
 ### List All People
 GET {{baseUrl}}/people/?limit=11&offset=11
 ### List Single Person
-GET {{baseUrl}}/people/2/
+GET {{baseUrl}}/people/18/
 
 ### Create Person
 POST {{baseUrl}}/people/

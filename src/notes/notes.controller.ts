@@ -6,17 +6,30 @@ import {
   HttpCode,
   HttpStatus,
   Param,
-  ParseIntPipe,
   Patch,
   Post,
   Query,
+  UseInterceptors,
+  UsePipes,
 } from '@nestjs/common';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { AddHeaderInterceptor } from 'src/common/interceptors/add-header.interceptor';
+import { AuthTokenInterceptor } from 'src/common/interceptors/auth-token.interceptor';
+import { ParseIntIdPipe } from 'src/common/pipes/parse.int-id-pipe';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { NotesService } from './notes.service';
 
 @Controller('notes')
+@UsePipes(ParseIntIdPipe)
+@UseInterceptors(
+  AddHeaderInterceptor,
+  AuthTokenInterceptor,
+  // TimingConnectionInterceptor,
+  // ErrorHandlingInterception,
+  // SimpleCacheInterceptor,
+  // ChangeDataInterceptor,
+)
 export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
@@ -24,11 +37,15 @@ export class NotesController {
   @Get()
   async findAll(@Query() paginationDto: PaginationDto) {
     const notes = await this.notesService.findAll(paginationDto);
+    //throw new Error('Erro ao buscar as notas');
     return notes;
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  @UsePipes(ParseIntIdPipe)
+  findOne(@Param('id') id: number) {
+    //console.log(id, typeof id);
+    //console.log(id, typeof id);
     return this.notesService.findOne(id);
     //return `This route returns a single note ID ${id}`;
   }
@@ -39,15 +56,12 @@ export class NotesController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateNoteDto: UpdateNoteDto,
-  ) {
+  update(@Param('id') id: number, @Body() updateNoteDto: UpdateNoteDto) {
     return this.notesService.update(id, updateNoteDto);
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
+  remove(@Param('id') id: number) {
     //console.log(id, typeof id);
     return this.notesService.remove(id);
   }

@@ -6,12 +6,15 @@ import {
   Param,
   Patch,
   Post,
+  UsePipes,
 } from '@nestjs/common';
+import { ParseIntIdPipe } from 'src/common/pipes/parse.int-id-pipe';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { PeopleService } from './people.service';
 
 @Controller('people')
+@UsePipes(ParseIntIdPipe)
 export class PeopleController {
   constructor(private readonly peopleService: PeopleService) {}
 
