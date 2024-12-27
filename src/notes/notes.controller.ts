@@ -3,19 +3,30 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import {
+  MY_DYNAMIC_CONFIG,
+  MyDynamicModuleConfigs,
+} from 'src/my-dynamic/my-dynamic.module';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { NotesService } from './notes.service';
 
 @Controller('notes')
 export class NotesController {
-  constructor(private readonly notesService: NotesService) {}
+  constructor(
+    private readonly notesService: NotesService,
+    @Inject(MY_DYNAMIC_CONFIG)
+    private readonly myDynamicModuleConfig: MyDynamicModuleConfigs,
+  ) {
+    console.log('NotesController', this.myDynamicModuleConfig);
+  }
 
   @Get()
   async findAll(@Query() paginationDto: PaginationDto) {

@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { Note } from './entities/note.entity';
+import { NotesUtils } from './notes.utils';
 
 @Injectable()
 export class NotesService {
@@ -13,6 +14,7 @@ export class NotesService {
     @InjectRepository(Note)
     private readonly noteRepository: Repository<Note>,
     private readonly peopleService: PeopleService,
+    private readonly notesUtils: NotesUtils,
   ) {}
 
   throwNotFoundError() {
@@ -20,6 +22,7 @@ export class NotesService {
   }
 
   async findAll(paginationDto?: PaginationDto) {
+    console.log(this.notesUtils.reverseString('abc'));
     const { limit = 10, offset = 0 } = paginationDto;
 
     const notes = await this.noteRepository.find({

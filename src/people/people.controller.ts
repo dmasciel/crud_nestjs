@@ -9,6 +9,7 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ParseIntIdPipe } from 'src/common/pipes/parse.int-id-pipe';
+import { NotesUtils } from 'src/notes/notes.utils';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { PeopleService } from './people.service';
@@ -16,7 +17,10 @@ import { PeopleService } from './people.service';
 @Controller('people')
 @UsePipes(ParseIntIdPipe)
 export class PeopleController {
-  constructor(private readonly peopleService: PeopleService) {}
+  constructor(
+    private readonly peopleService: PeopleService,
+    private readonly notesUtils: NotesUtils,
+  ) {}
 
   @Post()
   create(@Body() createPeopleDto: CreatePersonDto) {
@@ -25,6 +29,7 @@ export class PeopleController {
 
   @Get()
   findAll() {
+    console.log(this.notesUtils.reverseString('abc'));
     return this.peopleService.findAll();
   }
 
