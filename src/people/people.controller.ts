@@ -29,7 +29,7 @@ export class PeopleController {
 
   @Get()
   findAll() {
-    console.log(this.notesUtils.reverseString('abc'));
+    //console.log(this.notesUtils.reverseString('abc'));
     return this.peopleService.findAll();
   }
 
