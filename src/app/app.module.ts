@@ -1,16 +1,18 @@
 import * as Joi from '@hapi/joi';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { NotesModule } from 'src/notes/notes.module';
 import { PeoplesModule } from 'src/people/people.module';
+import appConfig from './app.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      load: [appConfig],
+      //envFilePath: '.env',
       validationSchema: Joi.object({
         DATABASE_TYPE: Joi.required(),
         DATABASE_HOST: Joi.required(),
@@ -21,16 +23,24 @@ import { AppService } from './app.service';
         DATABASE_AUTO_LOAD_ENTITIES: Joi.number().min(0).max(1).default(0),
         DATABASE_SYNCHRONIZE: Joi.number().min(0).max(1).default(0),
       }),
-    }), //importa o modulo de configuração
-    TypeOrmModule.forRoot({
-      type: process.env.DATABASE_TYPE as 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: +process.env.DATABASE_PORT,
-      database: process.env.DATABASE_DATABASE,
-      username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD,
-      autoLoadEntities: Boolean(process.env.DATABASE_AUTO_LOAD_ENTITIES),
-      synchronize: Boolean(process.env.DATABASE_SYNCHRONIZE),
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return {
+          type: configService.get<'postgres'>('database.type'),
+          host: configService.get<string>('database.host'),
+          port: configService.get<number>('database.port'),
+          database: configService.get<string>('database.database'),
+          username: configService.get<string>('database.username'),
+          password: configService.get<string>('database.password'),
+          autoLoadEntities: configService.get<boolean>(
+            'database.autoLoadEntities',
+          ),
+          synchronize: configService.get<boolean>('database.synchronize'),
+        };
+      },
     }),
     NotesModule,
     PeoplesModule,
